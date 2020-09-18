@@ -184,6 +184,22 @@
 		width: 51px;
 		display: block;
 	}
+	.myimg {
+		height: 50px;
+
+	}
+	.myimg2 {
+		height: 75px;
+
+	}
+	.myimg3 {
+		height: 160px;
+		width: 160px;
+	}
+	.myimg4 {
+		height: 88px;
+		width: 88px;
+	}
 }
 
 

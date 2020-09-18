@@ -21,15 +21,15 @@ public class IShopApplicationListener implements ServletContextListener {
 		try {
 			serviceManager = ServiceManager.getInstance(sce.getServletContext());
 		} catch (RuntimeException e) {
-			LOGGER.error("Web application 'ishop' init failed: "+e.getMessage(), e);
+			LOGGER.error("Web application 'MyShop' init failed: "+e.getMessage(), e);
 			throw e;
 		}
-		LOGGER.info("Web application 'ishop' initialized");
+		LOGGER.info("Web application 'MyShop' initialized");
 	}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		serviceManager.close();
-		LOGGER.info("Web application 'ishop' destroyed");
+		LOGGER.info("Web application 'MyShop' destroyed");
 	}
 }

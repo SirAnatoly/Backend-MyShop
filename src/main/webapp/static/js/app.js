@@ -86,7 +86,7 @@
         $.ajax({
             url : url,
             success : function(html) {
-                $('#productList .text-center').prepend(html);
+                $('#myshopp ').append(html);
                 convertLoaderToButton(btn, 'btn-success', loadMoreProducts);
             },
             error : function(data) {

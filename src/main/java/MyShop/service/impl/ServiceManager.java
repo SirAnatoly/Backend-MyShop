@@ -1,7 +1,10 @@
 package MyShop.service.impl;
 
+import MyShop.dao.SQLDAO;
 import MyShop.service.OrderService;
 import MyShop.service.ProductService;
+import MyShop.util.HibernateUtil;
+import org.hibernate.SessionFactory;
 
 
 import java.io.IOException;
@@ -33,13 +36,21 @@ public class ServiceManager {
 		
 	}
 
+	private final SQLDAO sqlDAO;
+	private final SessionFactory sessionFactory;
 	private final Properties applicationProperties = new Properties();
 	private final ProductService productService;
 	private final OrderService orderService;
+
+	public SQLDAO getSqlDAO() { return sqlDAO; }
+	public SessionFactory getSessionFactory() { return sessionFactory; }
+
 	private ServiceManager(ServletContext context) {
 		loadApplicationProperties();
 		productService = new ProductServiceImpl();
 		orderService = new OrderServiceImpl();
+		sessionFactory= HibernateUtil.getSessionFactory();
+		sqlDAO = new SQLDAO(sessionFactory.openSession());
 	}
 	
 	private void loadApplicationProperties(){
