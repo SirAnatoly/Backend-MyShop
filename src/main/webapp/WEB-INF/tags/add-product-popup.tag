@@ -26,7 +26,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <img id="addToCartIndicator" src="static/img/loading.gif" class="hidden" alt="Loading...">
                 <button id="addToCart" type="button" class="btn btn-danger">Add to Cart</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

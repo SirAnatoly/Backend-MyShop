@@ -3,8 +3,10 @@
         initBuyBtn();
         $('#addToCart').click(addProductToCart);
         $('#addProductPopup .count').change(calculateCost);
+
         $('#loadMore').click(loadMoreProducts);
         $('.remove-product').click(removeProductFromCart);
+
     };
 
     var initBuyBtn = function(){
@@ -80,14 +82,21 @@
     };
 
     var loadMoreProducts = function (){
-        var btn = $('#loadMore');
+        let btn = $('#loadMore');
+        let productCount = parseInt($('#productList').attr('data-count'));
         convertButtonToLoader(btn, 'btn-success');
-        var url = '/ajax/html/more' + location.pathname + '?' + location.search.substring(1);
+        let url = '/ajax/html/more' + location.pathname + '?' + location.search.substring(1);
         $.ajax({
             url : url,
             success : function(html) {
-                $('#myshopp ').append(html);
-                convertLoaderToButton(btn, 'btn-success', loadMoreProducts);
+                if ( productCount > 0) {
+                    $('#myshopp ').append(html);
+                    convertLoaderToButton(btn, 'btn-success', loadMoreProducts);
+                    productCount -=  12;
+                    $('#productList').attr('data-count', productCount);
+                    if ( productCount < 12) btn.remove();
+                }
+
             },
             error : function(data) {
                 convertLoaderToButton(btn, 'btn-success', loadMoreProducts);

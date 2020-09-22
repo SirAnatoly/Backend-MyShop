@@ -5,7 +5,9 @@
   Time: 16:07
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="ishop" tagdir="/WEB-INF/tags"%>
 
 <!--start search form--->
 <form action="/search">
@@ -29,31 +31,30 @@
         <div class="collapse" id="collapseExample">
             <div class="well">
                 <h4><span class="label label-default ">Category filters:</span></h4>
+
                 <div class="panel-body categories">
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="category" value="1" class="search-option">E-book (78)</label>
+                    <c:forEach var="category" items="${CATEGORY_LIST }">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="category" value="${category.getId() }" class="search-option">
+                                        ${category.getName() }  (${category.getProductCount() })
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="category" value="2" class="search-option">Mp3-player
-                                (75)</label>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
+
                 <h4><span class="label label-default ">Producers filters:</span></h4>
                 <div class="panel-body producers">
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="producer" value="1" class="search-option">Dell (56) </label>
+                    <c:forEach var="producer" items="${PRODUCER_LIST }">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="producer" value="${producer.getId() }" class="search-option">
+                                        ${producer.getName() } (${producer.getProductCount() })
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="producer" value="2" class="search-option">Apple (22) </label>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -67,17 +68,12 @@
         <h3 class="panel-title">Product catalog</h3>
     </div>
     <div class="list-group">
-        <a href="/products/category1" class="list-group-item"><i class="fas fa-tablet"></i> <span class="badge">78</span> E-book</a>
-        <a href="/products/category2" class="list-group-item"> <i class="fas fa-music"></i> <span class="badge">75</span>
-            Mp3-player</a>
-        <a href="/products/category3" class="list-group-item"> <i class="fas fa-laptop"></i> <span class="badge">110</span>
-            Notebook</a>
-        <a href="/products/category4" class="list-group-item"> <i class="fas fa-phone"></i> <span class="badge">113</span> Phone</a>
-        <a href="/products/category5" class="list-group-item"> <i class="fas fa-mobile-alt"></i> <span class="badge">216</span>
-            Smartphone</a>
-        <a href="/products/category6" class="list-group-item"> <i class="far fa-clock"></i> <span class="badge">95</span>
-            Smartwatch</a>
-        <a href="/products/category7" class="list-group-item"> <i class="fas fa-tablet-alt"></i> <span class="badge">211</span> Tablet</a>
+        <c:forEach var="category" items="${CATEGORY_LIST }">
+            <a href="/products${category.getUrl() }" class="list-group-item ${selectedCategoryUrl == category.getUrl() ? 'active' : '' }">
+                    ${category.getIcon() } <span class="badge">${category.getProductCount()}</span> ${category.getName()}
+
+            </a>
+        </c:forEach>
     </div>
 </div>
 <!----end category------->

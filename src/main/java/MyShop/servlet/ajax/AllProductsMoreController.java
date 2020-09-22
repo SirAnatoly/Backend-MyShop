@@ -26,6 +26,7 @@ public class AllProductsMoreController extends AbstractController {
 		int start_id = Integer.parseInt(String.valueOf(req.getSession().getAttribute("startID")));
 		if(Integer.parseInt(String.valueOf(req.getSession().getAttribute("countOfProduct")))>start_id)
 		{
+
 			List<Product> products =
 					ServiceManager.getInstance(req.getServletContext())
 							.getSqlDAO().listAllProducts(start_id, Constants.MAX_PRODUCTS_PER_HTML_PAGE);

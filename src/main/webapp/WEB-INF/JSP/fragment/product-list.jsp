@@ -10,7 +10,7 @@
 <%@ taglib prefix="fmt" 	  	uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" 	  		uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<div class="row">
+<div id="listProd" class="row" data-id="${startID }" data-count="${countOfProduct}">
     <c:forEach var="p" items="${products }">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
         <div id="product ${p.getId() }" class="panel panel-default product">

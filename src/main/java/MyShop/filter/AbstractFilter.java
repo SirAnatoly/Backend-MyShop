@@ -30,11 +30,8 @@ public abstract class AbstractFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String url = req.getRequestURI();
-		if(UrlUtils.isMediaUrl(url) || UrlUtils.isStaticUrl(url)) {
-			chain.doFilter(request, response);
-		} else {
+
 			doFilter(req, resp, chain);
-		}
 	}
 	
 	public abstract void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException;

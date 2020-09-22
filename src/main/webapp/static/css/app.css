@@ -179,7 +179,6 @@
 		display: block;
 	}
 	.load-indicator {
-		background: url('../img/loading.gif') no-repeat center center;
 		height: 78px;
 		width: 51px;
 		display: block;

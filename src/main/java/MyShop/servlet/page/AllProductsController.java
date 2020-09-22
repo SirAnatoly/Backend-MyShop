@@ -19,7 +19,6 @@ public class AllProductsController extends AbstractController {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		long countofproducts =  ServiceManager.getInstance(req.getServletContext())
 				.getSqlDAO().countOfProducts();
 
@@ -30,7 +29,7 @@ public class AllProductsController extends AbstractController {
 						.getSqlDAO().listAllProducts(0,Constants.MAX_PRODUCTS_PER_HTML_PAGE);
 		req.setAttribute("products", products);
 
-		req.getSession().setAttribute("startID",Integer.valueOf(13));
+		req.getSession().setAttribute("startID",Integer.valueOf(12));
 		RoutingUtils.forwardToPage("products.jsp", req, resp);
 	}
 }

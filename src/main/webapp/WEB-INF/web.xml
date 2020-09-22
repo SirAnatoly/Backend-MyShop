@@ -3,17 +3,7 @@
          version="3.1">
 
   <filter-mapping>
-    <filter-name>ErrorHandlerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter-mapping>
-    <filter-name>TrimResponseFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter-mapping>
-    <filter-name>AutoRestoreShoppingCartFilter</filter-name>
+    <filter-name>CategoryProducerFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
