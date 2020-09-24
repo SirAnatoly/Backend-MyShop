@@ -1,76 +1,63 @@
 package MyShop.model;
 
 import MyShop.Constants;
-import MyShop.exception.ValidationException;
+import MyShop.entity.Product;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShoppingCart implements Serializable {
-	private Map<Integer, ShoppingCartItem> products = new HashMap<>();
-	private int totalCount = 0;
 
-	public void addProduct(int idProduct, int count) {
-		validateShoppingCartSize(idProduct);
-		ShoppingCartItem shoppingCartItem = products.get(idProduct);
-		if (shoppingCartItem == null) {
-			validateProductCount(count);
-			shoppingCartItem = new ShoppingCartItem(idProduct, count);
-			products.put(idProduct, shoppingCartItem);
-		} else {
-			validateProductCount(count + shoppingCartItem.getCount());
-			shoppingCartItem.setCount(shoppingCartItem.getCount() + count);
-		}
-		refreshStatistics();
+	private ProductsCount productArr[];
+	private int iterator;
+	private BigDecimal price;
+	private int countOfProducts;
+
+
+	public ShoppingCart() {
+		this.productArr =  new ProductsCount[Constants.MAX_PRODUCTS_PER_SHOPPING_CART];
+		this.iterator = 0;
+		this.price = new BigDecimal(0.0).setScale(2, RoundingMode.DOWN);;
+		this.countOfProducts = 0;
 	}
 
-	public void removeProduct(Integer idProduct, int count) {
-		ShoppingCartItem shoppingCartItem = products.get(idProduct);
-		if (shoppingCartItem != null) {
-			if (shoppingCartItem.getCount() > count) {
-				shoppingCartItem.setCount(shoppingCartItem.getCount() - count);
-			} else {
-				products.remove(idProduct);
+	public void addProduct(Product product,int count){
+
+		 if(iterator<20){
+		 	productArr[iterator] = new ProductsCount(product,count);
+		 }
+		iterator++;
+		 countOfProducts += count;
+		price =price.add(new BigDecimal(product.getPrice()* count));
+	}
+
+	public void removeProduct(int IdProduct){
+		for (int i = 0; i <productArr.length ; i++) {
+			if (productArr[i]!=null && productArr[i].getProduct().getId()==IdProduct) {
+				countOfProducts -= productArr[i].getCount();
+				price =price.subtract(new BigDecimal(productArr[i].getCount() * productArr[i].getProduct().getPrice()));
+				productArr[i] = null;
 			}
-			refreshStatistics();
 		}
 	}
 
-	public Collection<ShoppingCartItem> getItems() {
-		return products.values();
+	public double getTotalCost(){
+		return new BigDecimal(price.doubleValue()).setScale(2,RoundingMode.HALF_UP).doubleValue();
 	}
 
-	public int getTotalCount() {
-		return totalCount;
-	}
-	
-	private void validateProductCount(int count) {
-		if(count > Constants.MAX_PRODUCT_COUNT_PER_SHOPPING_CART){
-			throw new ValidationException("Limit for product count reached: count="+count);
-		}
-	}
-	
-	private void validateShoppingCartSize(int idProduct){
-		if(products.size() > Constants.MAX_PRODUCTS_PER_SHOPPING_CART ||
-				(products.size() == Constants.MAX_PRODUCTS_PER_SHOPPING_CART && !products.containsKey(idProduct))) {
-			throw new ValidationException("Limit for ShoppingCart size reached: size="+products.size());
-		}
+	public int getTotalCount(){
+	return countOfProducts;
 	}
 
-	private void refreshStatistics() {
-		totalCount = 0;
-		for (ShoppingCartItem shoppingCartItem : getItems()) {
-			totalCount += shoppingCartItem.getCount();
+	public ArrayList<ProductsCount> getProducts(){
+		ArrayList<ProductsCount> productsCounts = new ArrayList<>();
+		for (int i = 0; i<20 ; i++) {
+			if (productArr[i] != null) productsCounts.add(productArr[i]);
 		}
-	}
-
-	@Override
-	public String toString() {
-		return String.format("ShoppingCart [products=%s, totalCount=%s]", products, totalCount);
+		return productsCounts;
 	}
 }

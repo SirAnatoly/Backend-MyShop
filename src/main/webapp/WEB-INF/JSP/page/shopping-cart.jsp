@@ -23,31 +23,24 @@
         </tr>
         </thead>
         <tbody>
-        <tr id="product1" class="item">
+
+            <c:forEach var="p" items="${CURRENT_SHOPPING_CART.getProducts() }">
+        <tr id="product${p.getProduct().getId()}" class="item">
             <td class="uii">
-                <img class="img-responsive uii " alt="Responsive image "src="https://via.placeholder.com/400" ><br>Product name</td>
-            <td class="price">$ 2.00</td>
-            <td class="count">1</td>
+                <img class="img-responsive uii " alt="Responsive image "src="${p.getProduct().getImage_link()}" ><br>${ p.getProduct().getName() }</td>
+            <td class="price">${ p.getProduct().getPrice() }</td>
+            <td class="count">${p.getCount()}</td>
             <td>
-                <a class="btn btn-danger remove-product" data-id-product="1" data-count="1">Remove one</a>
+                <a id="button-remove" class="btn btn-danger remove-product remove-all" data-id-product="${p.getProduct().getId()}" data-count="${p.getCount()}">Remove</a>
             </td>
         </tr>
-        <tr id="product2" class="item">
-            <td class="uii">
-                <img class="img-responsive uii " alt="Responsive image "src="https://via.placeholder.com/400" alt="i"><br>Product name</td>
-            <td class="price">  $ 1.00</td>
-            <td class="count">2</td>
-            <td>
-                <a class="btn btn-danger remove-product" data-id-product="2" data-count="1">Remove one</a><br><br>
-                <a class="btn btn-danger remove-product all" data-id-product="2" data-count="2">Remove all</a>
-            </td>
-        </tr>
+                </c:forEach>
         <tr>
             <td colspan="2" class="text-right"><strong>Total:</strong></td>
-            <td colspan="2" class="total">$ 4.00</td>
+            <td colspan="2" class="total">$ ${CURRENT_SHOPPING_CART.getTotalCost()}</td>
         </tr>
         </tbody>
     </table>
-    <div class="row">
-    </div>
+
 </div>
+

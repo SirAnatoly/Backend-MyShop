@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label><input type="checkbox" name="category" value="${category.getId() }" class="search-option">
-                                        ${category.getName() }  (${category.getProductCount() })
+                                  <label class="myCategoryText">  ${category.getName() }  <span class="label label-primary myCategoryText2">${category.getProductCount() }</span></label>
                                 </label>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <div class="checkbox">
                                 <label><input type="checkbox" name="producer" value="${producer.getId() }" class="search-option">
-                                        ${producer.getName() } (${producer.getProductCount() })
+                                    <label class="myCategoryText">   ${producer.getName() } <span class="label label-primary myCategoryText2">${producer.getProductCount() }</span></label>
                                 </label>
                             </div>
                         </div>
@@ -69,10 +69,14 @@
     </div>
     <div class="list-group">
         <c:forEach var="category" items="${CATEGORY_LIST }">
-            <a href="/products${category.getUrl() }" class="list-group-item ${selectedCategoryUrl == category.getUrl() ? 'active' : '' }">
-                    ${category.getIcon() } <span class="badge">${category.getProductCount()}</span> ${category.getName()}
+            <div class="myCategoryText">
+
+                <a href="/products${category.getUrl() }" class="list-group-item ${selectedCategoryUrl == category.getUrl() ? 'active' : '' }">
+
+                ${category.getIcon() } <span class="badge ">${category.getProductCount()}</span>   ${category.getName()}
 
             </a>
+            </div>
         </c:forEach>
     </div>
 </div>

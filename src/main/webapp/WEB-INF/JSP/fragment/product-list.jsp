@@ -13,7 +13,7 @@
 <div id="listProd" class="row" data-id="${startID }" data-count="${countOfProduct}">
     <c:forEach var="p" items="${products }">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 ">
-        <div id="product ${p.getId() }" class="panel panel-default product">
+        <div id="product${p.getId() }" class="panel panel-default product">
             <div class="panel-body">
                 <div class="thumbnail">
                     <img src="${p.getImage_link()}" alt="${p.getName() }">
@@ -25,7 +25,7 @@
                 </div>
                 <h4 class="name">${p.getName() }</h4>
                 <div class="price">$ ${p.getPrice() }</div>
-                <a class="btn btn-danger pull-right btn-block buy-btn" data-id-product="1"><b>Buy</b></a>
+                <a class="btn btn-danger pull-right btn-block buy-btn" data-id-product="${p.getId() }"><b>Buy</b></a>
                 <div class="code">Code: ${p.getId() }</div>
                 <div class="list-group">
                     <span class="list-group-item"> <small>Category:</small> <span class="category">${p.getCategory().getName() }</span></span>

@@ -25,14 +25,16 @@ public class SearchController extends AbstractController {
 		SearchForm searchForm =  new SearchForm( req.getParameter("query"),  req.getParameterValues("category"),
 				req.getParameterValues("producer"));
 
-		List<Product> products =
-				ServiceManager.getInstance(req.getServletContext())
-						.getSqlDAO().listProductsBySearchForm(searchForm,0, Constants.MAX_PRODUCTS_PER_HTML_PAGE);
-		req.setAttribute("products", products);
-		req.getSession().setAttribute("countOfProduct", ServiceManager.getInstance(req.getServletContext())
-				.getSqlDAO().countProductsBySearchForm(searchForm));
-		req.setAttribute("searchForm", searchForm);
-		req.getSession().setAttribute("startID",Integer.valueOf(12));
-		RoutingUtils.forwardToPage("search-result.jsp", req, resp);
+		if (!searchForm.isEmpty()) {
+			List<Product> products =
+					ServiceManager.getInstance(req.getServletContext())
+							.getSqlDAO().listProductsBySearchForm(searchForm, 0, Constants.MAX_PRODUCTS_PER_HTML_PAGE);
+			req.setAttribute("products", products);
+			req.getSession().setAttribute("countOfProduct", ServiceManager.getInstance(req.getServletContext())
+					.getSqlDAO().countProductsBySearchForm(searchForm));
+			req.setAttribute("searchForm", searchForm);
+			req.getSession().setAttribute("startID", Integer.valueOf(12));
+			RoutingUtils.forwardToPage("search-result.jsp", req, resp);
+		}else resp.sendRedirect("/products");
 	}
 }

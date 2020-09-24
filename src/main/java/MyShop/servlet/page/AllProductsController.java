@@ -30,6 +30,7 @@ public class AllProductsController extends AbstractController {
 		req.setAttribute("products", products);
 
 		req.getSession().setAttribute("startID",Integer.valueOf(12));
+
 		RoutingUtils.forwardToPage("products.jsp", req, resp);
 	}
 }

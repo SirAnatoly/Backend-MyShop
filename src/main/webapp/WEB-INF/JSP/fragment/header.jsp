@@ -6,7 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@ taglib prefix="c" 	  		uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" 	  	uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" 	  		uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -37,11 +39,11 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            Shopping cart (<span class="total-count">0</span>)<span class="caret"></span>
+                            Shopping cart <span class="label label-warning"><span class="total-count">${CURRENT_SHOPPING_CART.getTotalCount()}</span></span><span class="caret"></span>
                         </a>
                         <div class="dropdown-menu shopping-cart-desc ">
-                            <p class="text-center"> Total count: <span class="total-count">0</span><br>
-                                Total cost: <span class="total-cost">0</span><br>
+                            <p class="text-center"> Total count: <span class="total-count">${CURRENT_SHOPPING_CART.getTotalCount()}</span><br>
+                                Total cost: $ <span class="total-cost">${CURRENT_SHOPPING_CART.getTotalCost()}</span><br>
                             </p>
                             <a href="/shopping-cart" class="btn btn-warning btn-block">View cart</a>
                         </div>

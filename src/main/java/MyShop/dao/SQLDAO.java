@@ -146,5 +146,12 @@ public class SQLDAO {
         return q.getResultList().size();
     }
 
+    public Product productById(int id){
+        Query q = session.createQuery("FROM Product WHERE id = "+id);
+
+        return (Product) q.getSingleResult();
+
+    }
+
 
 }
