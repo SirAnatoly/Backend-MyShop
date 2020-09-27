@@ -1,9 +1,11 @@
 package MyShop.dao;
 
+import MyShop.entity.Account;
 import MyShop.entity.Category;
 import MyShop.entity.Producer;
 import MyShop.entity.Product;
 import MyShop.form.SearchForm;
+import MyShop.model.SocialAccount;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -148,10 +150,23 @@ public class SQLDAO {
 
     public Product productById(int id){
         Query q = session.createQuery("FROM Product WHERE id = "+id);
-
         return (Product) q.getSingleResult();
 
     }
 
+    public Account authenticate(SocialAccount socialAccount) {
+        Account account;
+        Query q = session.createQuery("FROM Account WHERE email like " + "'" + socialAccount.getEmail() + "'");
+        if (q.list().size()!=0)
+        account = (Account) q.getSingleResult();
+        else {
+            session.beginTransaction();
+            session.save(new Account(socialAccount.getName(), socialAccount.getEmail()));
+            session.getTransaction().commit();
+            Query qw = session.createQuery("FROM Account WHERE email like " + "'" + socialAccount.getEmail() + "'");
+            account = (Account) qw.getSingleResult();
+        }
+        return account;
+    }
 
 }

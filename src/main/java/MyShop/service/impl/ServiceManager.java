@@ -3,6 +3,7 @@ package MyShop.service.impl;
 import MyShop.dao.SQLDAO;
 import MyShop.service.OrderService;
 import MyShop.service.ProductService;
+import MyShop.service.SocialService;
 import MyShop.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -41,6 +42,7 @@ public class ServiceManager {
 	private final Properties applicationProperties = new Properties();
 	private final ProductService productService;
 	private final OrderService orderService;
+	private final SocialService socialService;
 
 	public SQLDAO getSqlDAO() { return sqlDAO; }
 	public SessionFactory getSessionFactory() { return sessionFactory; }
@@ -51,8 +53,13 @@ public class ServiceManager {
 		orderService = new OrderServiceImpl();
 		sessionFactory= HibernateUtil.getSessionFactory();
 		sqlDAO = new SQLDAO(sessionFactory.openSession());
+		socialService = new FacebookSocialService(this);
 	}
-	
+
+	public SocialService getSocialService() {
+		return socialService;
+	}
+
 	private void loadApplicationProperties(){
 		try(InputStream in = ServiceManager.class.getClassLoader().getResourceAsStream("application.properties")) {
 			applicationProperties.load(in);

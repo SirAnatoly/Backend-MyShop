@@ -33,7 +33,26 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="text-center"><a href="#"> <i class="fab fa-facebook"></i> Sign in</a></li>
+
+
+                <c:choose>
+                    <c:when test="${CURRENT_ACCOUNT != null }">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a>Welcome: ${CURRENT_ACCOUNT.description }</a></li>
+                            <li><a href="/my-orders">My orders</a></li>
+                            <li><a href="/sign-out">Sign out</a></li>
+                        </ul>
+                    </c:when>
+                    <c:otherwise>
+                        <li > <form action="/sign-in" method="post">
+                             <button  type="submit" class="btn btn-primary navbar-btn navbar-right sign-in text-center">
+                                 <i class="fab fa-facebook"></i> Sign in
+                            </button>
+                        </form></li>
+                    </c:otherwise>
+                </c:choose>
+
+
                 <ul id="currentShoppingCart" class="nav navbar-nav navbar-right text-center">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
