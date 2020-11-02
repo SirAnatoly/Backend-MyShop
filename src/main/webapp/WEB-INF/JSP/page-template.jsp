@@ -24,7 +24,7 @@
         </main>
     </div>
 </div>
-<footer class="footer">
+<footer >
     <jsp:include page="fragment/footer.jsp" />
 </footer>
 <script src="/static/js/all.js"></script>

@@ -10,12 +10,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "order_item")
-@Getter
-@Setter
-@AllArgsConstructor
-@RequiredArgsConstructor
-@NoArgsConstructor
-@ToString
 @DynamicUpdate
 @DynamicInsert
 @EqualsAndHashCode(of = "id")
@@ -24,15 +18,58 @@ public class OrderItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NonNull
-    @Column(name = "id_product")
-    private long IdProduct;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_product")
+    private Product product;
 
-    @NonNull
-    @Column(name = "id_order")
-    private long IdOrder;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "id_order")
+    private Orders order;
 
     @NotNull
     private long count;
 
+
+    public OrderItem(Product product, Orders order, long count) {
+        this.product = product;
+        this.order = order;
+        this.count = count;
+    }
+
+    public OrderItem() {
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setOrder(Orders order) {
+        this.order = order;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public Orders getOrder() {
+        return order;
+    }
+
+    public long getCount() {
+        return count;
+    }
 }

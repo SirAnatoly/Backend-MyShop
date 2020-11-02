@@ -24,15 +24,19 @@ public class AllProductsMoreController extends AbstractController {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		int start_id = Integer.parseInt(String.valueOf(req.getSession().getAttribute("startID")));
+
 		if(Integer.parseInt(String.valueOf(req.getSession().getAttribute("countOfProduct")))>start_id)
 		{
-
 			List<Product> products =
 					ServiceManager.getInstance(req.getServletContext())
 							.getSqlDAO().listAllProducts(start_id, Constants.MAX_PRODUCTS_PER_HTML_PAGE);
+
 			req.getSession().setAttribute("products", products);
+
 			req.getSession().setAttribute("startID",start_id + 12 );
+
 			RoutingUtils.forwardToFragment("product-list.jsp", req, resp);
+
 		}
 
 	}

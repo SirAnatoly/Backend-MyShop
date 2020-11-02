@@ -137,10 +137,7 @@
 	}
 
 	.blog-footer {
-		padding: 2.5rem 0;
-		text-align: center;
 		background-color: #eee4e4;
-		border-top: .05rem solid #9c9191;
 	}
 
 	.badge {
@@ -169,9 +166,6 @@
 		margin-top: 10px;
 	}
 
-	.navbar-btn.navbar-right.sign-in {
-		margin-right: 10px;
-	}
 
 	.uii {
 		max-width: 38%;

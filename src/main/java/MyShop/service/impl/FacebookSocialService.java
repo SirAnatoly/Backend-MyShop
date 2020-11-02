@@ -19,24 +19,34 @@ class FacebookSocialService implements SocialService {
     FacebookSocialService(ServiceManager serviceManager) {
         super();
         idClient = serviceManager.getApplicationProperty("social.facebook.idClient");
+
         secret = serviceManager.getApplicationProperty("social.facebook.secret");
+
         redirectUrl = serviceManager.getApplicationProperty("app.host") + "/from-social";
     }
 
     @Override
     public String getAuthorizeUrl() {
+
         ScopeBuilder scopeBuilder = new ScopeBuilder();
+
         scopeBuilder.addPermission(FacebookPermissions.EMAIL);
+
         FacebookClient client = new DefaultFacebookClient(Version.VERSION_8_0);
+
         return client.getLoginDialogUrl(idClient, redirectUrl, scopeBuilder);
     }
 
     @Override
     public SocialAccount getSocialAccount(String authToken) {
         FacebookClient client = new DefaultFacebookClient(Version.VERSION_8_0);
+
         FacebookClient.AccessToken accessToken = client.obtainUserAccessToken(idClient, secret, redirectUrl, authToken);
+
         client = new DefaultFacebookClient(accessToken.getAccessToken(), Version.VERSION_8_0);
+
         User user = client.fetchObject("me", User.class, Parameter.with("fields", "name,email,first_name,last_name"));
+
        if (user.getEmail()==null) return null;
         return new SocialAccount(user.getFirstName() +" " + user.getLastName(), user.getEmail());
     }

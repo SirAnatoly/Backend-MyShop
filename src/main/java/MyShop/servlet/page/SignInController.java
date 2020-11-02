@@ -1,5 +1,7 @@
 package MyShop.servlet.page;
 
+import MyShop.Constants;
+import MyShop.model.CurrentAccount;
 import MyShop.servlet.AbstractController;
 import MyShop.util.RoutingUtils;
 import MyShop.util.SessionUtils;
@@ -18,7 +20,11 @@ public class SignInController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if (SessionUtils.isCurrentAccountCreated(req)) {
+
+            CurrentAccount account = (CurrentAccount) req.getSession().getAttribute(Constants.CURRENT_ACCOUNT);
+
             RoutingUtils.redirect("/my-orders", req, resp);
+
         } else {
             RoutingUtils.forwardToPage("/products.jsp", req, resp);
         }
@@ -27,7 +33,9 @@ public class SignInController extends AbstractController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (SessionUtils.isCurrentAccountCreated(req)) {
+
             RoutingUtils.redirect("/my-orders", req, resp);
+
         } else {
             RoutingUtils.redirect(getSocialService().getAuthorizeUrl(), req, resp);
 

@@ -1,20 +1,20 @@
 package MyShop.dao;
 
-import MyShop.entity.Account;
-import MyShop.entity.Category;
-import MyShop.entity.Producer;
-import MyShop.entity.Product;
+import MyShop.entity.*;
 import MyShop.form.SearchForm;
+import MyShop.model.CurrentAccount;
 import MyShop.model.SocialAccount;
+import MyShop.service.impl.ServiceManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import javax.persistence.criteria.Order;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class SQLDAO {
 
     private Session session ;
-
     public SQLDAO(Session session) {
         this.session = session;
     }
@@ -29,9 +29,11 @@ public class SQLDAO {
 
     }
 
-    public long countOfProducts (){
+    public List<Product> getListAllProducts() {
+
         Query q = session.createQuery("FROM Product ");
-      return q.getResultList().size();
+        List results = q.list();
+        return results;
     }
 
     public List<Product> listProductsByCategory(String categoryUrl, int fromId, int limit) {
@@ -97,7 +99,6 @@ public class SQLDAO {
             sb.deleteCharAt(sb.length() - 1);
             sb.append(")");
         }
-        System.out.println(sb.toString());
 
         Query q = session.createQuery(sb.toString());
         q.setFirstResult(start);
@@ -167,6 +168,94 @@ public class SQLDAO {
             account = (Account) qw.getSingleResult();
         }
         return account;
+    }
+
+    public void makeOrder(Account account){
+        session.beginTransaction();
+        session.save(new Orders(account));
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
+    public List<Orders> getOrdersByAccount(Account account){
+
+        Query q = session.createQuery("FROM Orders where account.id = " + account.getId());
+         return q.list();
+    }
+
+    public long lastOrdByAccount(Account account){
+        Query qw = session.createQuery("FROM Orders WHERE account.id = "+ account.getId()+" order by account.id  ");
+        Orders  order = (Orders) qw.getSingleResult();
+        return order.getId();
+    }
+
+    public void makeItemOrders(Product product, Orders order, int count){
+        session.beginTransaction();
+        session.save(new OrderItem(product,order,count));
+        session.getTransaction().commit();
+    }
+    public List<OrderItem> getOrderItemsByOrder(Orders order){
+        Query q = session.createQuery("FROM OrderItem where order.id = " + order.getId());
+        return q.list();
+    }
+    public long getLastOrder(CurrentAccount account){
+        String hql = "SELECT MAX(id) FROM Orders WHERE account.id ="+account.getId();
+        Query query = session.createQuery(hql);
+        Integer integer = (Integer) query.getSingleResult();
+        return integer;
+    }
+    public Orders getOrderById(long id){
+        Query q = session.createQuery("FROM Orders WHERE id =" +id);
+        return (Orders)q.getSingleResult();
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public long countOfProducts (){
+        Query q = session.createQuery("FROM Product ");
+        return q.getResultList().size();
+    }
+
+    public long countOfUsers(){
+        Query q = session.createQuery("FROM Account ");
+        return q.getResultList().size();
+
+    }
+    public List<Orders> getOrders(){
+
+        Query q = session.createQuery("FROM Orders ");
+        return q.list();
+    }
+
+    public void createProduct(Product product){
+        session.beginTransaction();
+        session.save(product);
+        session.getTransaction().commit();
+    }
+    public void removeProduct(long id){
+        session.beginTransaction();
+        String hql = "DELETE FROM Product WHERE id = " + id;
+        Query query = session.createQuery(hql);
+        int result = query.executeUpdate();
+        session.getTransaction().commit();
+    }
+
+    public Category categoryById(int id){
+        Query q = session.createQuery("FROM Category WHERE id = "+id);
+        return (Category) q.getSingleResult();
+
+    }
+    public Producer producerById(int id){
+        Query q = session.createQuery("FROM Producer WHERE id = "+id);
+        return (Producer) q.getSingleResult();
+
     }
 
 }

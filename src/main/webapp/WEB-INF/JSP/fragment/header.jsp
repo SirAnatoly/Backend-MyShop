@@ -28,47 +28,54 @@
             <ul class="nav navbar-nav">
                 <p class="navbar-text text-center"><i class="fas fa-phone-alt"></i>+48 512-148-921</p>
 
-                <p class="navbar-text text-center "><i class="fas fa-map-marker-alt"></i>Uganda</p>
+                <img  class="visible-lg navbar-right " src="/static/logo-dhl-copy.svg">
 
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-
+                
+                ${admin == null ? '' : '<li > <form action="/admin" method="get"><li class="text-center"><button class="sign-in" style="margin: 15px" type="submit"> Admin board</button> </li></form></li>' }
 
                 <c:choose>
                     <c:when test="${CURRENT_ACCOUNT != null }">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a>Welcome: ${CURRENT_ACCOUNT.description }</a></li>
-                            <li><a href="/my-orders">My orders</a></li>
-                            <li><a href="/sign-out">Sign out</a></li>
+                            <li><a class=" text-center">Welcome: ${CURRENT_ACCOUNT.description }</a></li>
+                            <li><a class=" text-center" href="/my-orders">My orders</a></li>
+                            <li><a class=" text-center" href="/sign-out">Sign out</a></li>
                         </ul>
                     </c:when>
                     <c:otherwise>
                         <li > <form action="/sign-in" method="post">
-                             <button  type="submit" class="btn btn-primary navbar-btn navbar-right sign-in text-center">
-                                 <i class="fab fa-facebook"></i> Sign in
-                            </button>
-                        </form></li>
+                        <li class="text-center">
+                        <button class="sign-in" style="margin: 15px" type="submit">
+                            <i class="fab fa-facebook "></i> Sign in
+                        </button> </li>
+                        </form>
+                        </li>
                     </c:otherwise>
                 </c:choose>
 
 
-                <ul id="currentShoppingCart" class="nav navbar-nav navbar-right text-center">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                            Shopping cart <span class="label label-warning"><span class="total-count">${CURRENT_SHOPPING_CART.getTotalCount()}</span></span><span class="caret"></span>
-                        </a>
-                        <div class="dropdown-menu shopping-cart-desc ">
-                            <p class="text-center"> Total count: <span class="total-count">${CURRENT_SHOPPING_CART.getTotalCount()}</span><br>
-                                Total cost: $ <span class="total-cost">${CURRENT_SHOPPING_CART.getTotalCost()}</span><br>
-                            </p>
-                            <a href="/shopping-cart" class="btn btn-warning btn-block">View cart</a>
-                        </div>
-                    </li>
-                </ul>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+<%--   <button  type="submit" class="btn btn-primary navbar-btn navbar-right sign-in text-center">
+--%>
+
+
+    <ul id="currentShoppingCart" class="nav navbar-nav navbar-right text-center">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Shopping cart <span class="label label-warning"><span class="total-count">${CURRENT_SHOPPING_CART.getTotalCount()}</span></span><span class="caret"></span>
+            </a>
+            <div class="dropdown-menu shopping-cart-desc ">
+                <p class="text-center"> Total count: <span class="total-count">${CURRENT_SHOPPING_CART.getTotalCount()}</span><br>
+                    Total cost: $ <span class="total-cost">${CURRENT_SHOPPING_CART.getTotalCost()}</span><br>
+                </p>
+                <a href="/shopping-cart" class="btn btn-warning btn-block">View cart</a>
+            </div>
+        </li>
+    </ul>
+</ul>
+</div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
 </nav>

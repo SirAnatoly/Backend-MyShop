@@ -73,7 +73,7 @@
 
                 <a href="/products${category.getUrl() }" class="list-group-item ${selectedCategoryUrl == category.getUrl() ? 'active' : '' }">
 
-                ${category.getIcon() } <span class="badge ">${category.getProductCount()}</span>   ${category.getName()}
+                        ${category.getIcon() } <span class="badge ">${category.getProductCount()}</span>   ${category.getName()}
 
             </a>
             </div>

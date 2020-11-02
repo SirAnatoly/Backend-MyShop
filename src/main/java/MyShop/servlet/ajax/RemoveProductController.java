@@ -24,12 +24,16 @@ public class RemoveProductController extends AbstractController {
         req.getSession().setAttribute(Constants.CURRENT_SHOPPING_CART, shoppingCart);
 
         JSONObject r = new JSONObject();
+
         r.put("totalCount", shoppingCart.getTotalCount());
+
         r.put("totalCost", shoppingCart.getTotalCost());
 
 
         resp.setContentType("application/json");
+
         resp.getWriter().println(r.toString());
+
         resp.getWriter().close();
     }
 }

@@ -169,6 +169,7 @@
                     }
                     $('#currentShoppingCart .total-count').text(data.totalCount);
                     $('#currentShoppingCart .total-cost').text(data.totalCost);
+                    $('#shoppingCart .total').text(data.totalCost);
                 }
             },
             error: function (data) {

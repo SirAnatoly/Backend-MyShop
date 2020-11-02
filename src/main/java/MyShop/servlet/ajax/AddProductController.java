@@ -27,12 +27,16 @@ public class AddProductController extends AbstractController {
                       .getSqlDAO().productById(IdProduct),count);
 
         JSONObject r = new JSONObject();
+
         r.put("totalCount", shoppingCart.getTotalCount());
+
         r.put("totalCost", shoppingCart.getTotalCost());
 
 
         resp.setContentType("application/json");
+
         resp.getWriter().println(r.toString());
+
         resp.getWriter().close();
 
     }

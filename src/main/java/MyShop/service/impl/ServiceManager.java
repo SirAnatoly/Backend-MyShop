@@ -1,6 +1,7 @@
 package MyShop.service.impl;
 
 import MyShop.dao.SQLDAO;
+import MyShop.service.NotificationService;
 import MyShop.service.OrderService;
 import MyShop.service.ProductService;
 import MyShop.service.SocialService;
@@ -43,6 +44,7 @@ public class ServiceManager {
 	private final ProductService productService;
 	private final OrderService orderService;
 	private final SocialService socialService;
+	private final NotificationService notificationService;
 
 	public SQLDAO getSqlDAO() { return sqlDAO; }
 	public SessionFactory getSessionFactory() { return sessionFactory; }
@@ -54,10 +56,15 @@ public class ServiceManager {
 		sessionFactory= HibernateUtil.getSessionFactory();
 		sqlDAO = new SQLDAO(sessionFactory.openSession());
 		socialService = new FacebookSocialService(this);
+		this.notificationService = new AsyncEmailNotificationService(this);
 	}
 
 	public SocialService getSocialService() {
 		return socialService;
+	}
+
+	public NotificationService getNotificationService() {
+		return notificationService;
 	}
 
 	private void loadApplicationProperties(){

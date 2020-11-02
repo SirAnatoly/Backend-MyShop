@@ -11,9 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "product")
-@AllArgsConstructor
 @RequiredArgsConstructor
-@NoArgsConstructor
 @DynamicUpdate
 @DynamicInsert
 @EqualsAndHashCode(of = "id")
@@ -44,6 +42,18 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_producer")
     private Producer producer;
+
+    public Product(@NonNull String name, @NonNull String description, @NonNull String image_link, double price, Category category, Producer producer) {
+        this.name = name;
+        this.description = description;
+        this.image_link = image_link;
+        this.price = price;
+        this.category = category;
+        this.producer = producer;
+    }
+
+    public Product() {
+    }
 
     public void setId(long id) {
         this.id = id;

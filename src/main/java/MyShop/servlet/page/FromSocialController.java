@@ -32,10 +32,14 @@ public class FromSocialController extends AbstractController {
 
             CurrentAccount currentAccount = ServiceManager.getInstance(req.getServletContext())
                     .getSqlDAO().authenticate(socialAccount);
+
             SessionUtils.setCurrentAccount(req, currentAccount);
+
             RoutingUtils.redirect("/my-orders", req, resp);
+
         } else {
             LOGGER.error("Parameter code not found");
+
             RoutingUtils.redirect("/sign-in", req, resp);
 
         }
