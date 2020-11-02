@@ -1,16 +1,14 @@
 # This is my project: online shop with admin board. And he based on Java EE technology
 
-
 <a href="https://youtu.be/7zCUDVQZyO8">VIDEO DEMO:</a>
 
  
-[![Watch the video](https://picua.org/images/2020/11/02/731e054003177c05072a5f7a47b07caa.png)](https://youtu.be/7zCUDVQZyO8)
+[![Watch the video](http://i.piccy.info/i9/5fd4a906ff7ed35bce63e9472924469e/1604354613/168608/1403575/foto2.jpg)](https://youtu.be/7zCUDVQZyO8)
 
 
-<img src="https://picua.org/images/2020/10/29/1a140ebe8ba52af327d3509f94e9530a.png" alt="mvc">
+<a href="http://piccy.info/view3/14051832/4f0fc51d8e891de6d4cfcc602e8d68bd/1200/" target="_blank"><img src="http://i.piccy.info/i9/9e05fdd39c5f77cdde648a4e8068f3c1/1604352942/53331/1403575/web_app_my_shop_png_800.jpg" alt="Piccy.info - Free Image Hosting" border="0" /></a><a href="http://i.piccy.info/a3c/2020-11-02-21-35/i9-14051832/800x416-r" target="_blank"><img src="http://i.piccy.info/a3/2020-11-02-21-35/i9-14051832/800x416-r/i.gif" alt="" border="0" /></a>
 
-
-<img src="https://picua.org/images/2020/11/02/c3271025aeb08d302bffcbc70cf7fad9.png" alt="db er">
+<a href="http://piccy.info/view3/14051830/737e6eb4e9a51d07156fddb335c61d5d/orig/" target="_blank"><img src="http://i.piccy.info/i9/43e37da39edfa7122a4264a36a0f1836/1604352839/83670/1403575/1_800.jpg" alt="Piccy.info - Free Image Hosting" border="0" /></a><a href="http://i.piccy.info/a3c/2020-11-02-21-34/i9-14051830/800x444-r" target="_blank"><img src="http://i.piccy.info/a3/2020-11-02-21-34/i9-14051830/800x444-r/i.gif" alt="" border="0" /></a>
 
 
 <h3>Technologies </h3>
@@ -28,21 +26,21 @@
 # I have implemented the following features:
 
   <ul>
-    <li>Display of all products in the shop via AJAX loading, more products</li>
+    <li>Displaying of all products in the shop, button(more products) via AJAX loading </li>
     <li>Button return to the top</li>
-    <li>Category panel with a product quantity indicator</li> 
-    <li>Searching products by name or initials, and using categories or producers from the filters tab (via SQL) </li> 
-    <li>More filters tab contains categories and producers with a quantity indicator</li>
-    <li>Button for registering on the shop by Facebook</li>
-    <li>The shopping cart tab with indicators of the number of products and total cost.</li>
-    <li>When you click the buy button, will be an open popup with an indicator of the number of products and their total cost, the maximum number of products is 10 pieces.</li>
-    <li>An unregistered user can't make an order, but he can add products to the shopping cart or delete from there.
+    <li>Category panel with a quantity indicator</li> 
+    <li>Searching products by: name, using categories or producers from the filters tab (via SQL) </li> 
+    <li> Tab - More filters, contains categories and producers with a quantity indicator</li>
+    <li>Button for registering in the shop by Facebook</li>
+    <li>The shopping cart tab with indicators of a quantity of products and total cost.</li>
+    <li>When you click a buy button, will be an open popup with an indicator of the number of products and their total cost, the maximum number of products is 10 pieces.</li>
+    <li>An unregistered user can't create an order, but he can add products to the shopping cart or delete.
 </li>
     <li>If the user successfully login to the shop, he will be forwarded to a page(my orders) with a table of his orders, and short information in the navigation panel.
 </li>
     <li> If the user has selected the required number of products, he can create an order, after which he will receive a notification about the successful order.
 </li>
-    <li> After successful creating order, the server will send the email to the administrator's email address, with the information about the user like ( name and email address, order short description)
+    <li> After successful creating order, the server will send the email to the administrator's email address, with the information about the user like ( name, email, orders short description)
 </li>
     <li>Also, the Buyer will also receive an email with information about the order and thanks for the purchase.
 </li>
@@ -114,26 +112,5 @@ public class Constants {
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
 
-    <mapping class="MyShop.entity.Category"/>
-    <mapping class="MyShop.entity.Account"/>
-    <mapping class="MyShop.entity.Orders"/>
-    <mapping class="MyShop.entity.Producer"/>
-    <mapping class="MyShop.entity.Product"/>
-    <mapping class="MyShop.entity.OrderItem"/>
 
-<h3>4) File: src/main/webapp/WEB-INF/web.xml</h3>
 
-  <filter-mapping><br>
-    <filter-name>CategoryProducerFilter</filter-name><br>
-    <url-pattern>/*</url-pattern><br>
-  </filter-mapping><br>
-  <br>
-  <filter-mapping><br>
-    <filter-name>AutoRestoreShoppingCartFilter</filter-name><br>
-    <url-pattern>/*</url-pattern><br>
-  </filter-mapping><br>
-<br>
-  <session-config><br>
-    <tracking-mode>COOKIE</tracking-mode><br>
-    <session-timeout>30</session-timeout><br>
-  </session-config><br>
