@@ -1,4 +1,4 @@
-# This is my project: online shop with admin board. And he based on Java EE technology
+# This is my project: online shop with admin board.On Java EE technology
 
 <a href="https://youtu.be/7zCUDVQZyO8">VIDEO DEMO:</a>
 
